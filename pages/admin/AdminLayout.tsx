@@ -1,0 +1,137 @@
+import React, { useEffect } from 'react';
+import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { LayoutDashboard, Calendar, LogOut, Dumbbell, Loader2, Mail, ArrowLeft, Menu, X } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
+
+const AdminLayout: React.FC = () => {
+  const navigate = useNavigate();
+  const { user, isAdmin, loading, signOut } = useAuth();
+  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+
+  useEffect(() => {
+    if (loading) return;
+    if (!user) {
+      navigate('/signin');
+      return;
+    }
+    if (!isAdmin) {
+      navigate('/');
+    }
+  }, [user, isAdmin, loading, navigate]);
+
+  const handleLogout = async () => {
+    await signOut();
+    navigate('/signin');
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-bg flex items-center justify-center">
+        <Loader2 className="h-8 w-8 text-primary animate-spin" />
+      </div>
+    );
+  }
+
+  if (!user || !isAdmin) return null;
+
+  return (
+    <div className="flex h-screen bg-bg text-white font-sans overflow-hidden">
+      {/* Mobile Header */}
+      <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-surface border-b border-white/5 flex items-center justify-between px-4 z-40">
+        <div className="flex items-center gap-2">
+          <Dumbbell className="h-6 w-6 text-primary" />
+          <span className="font-display font-bold text-xl tracking-tight">GRIT <span className="text-primary">ADMIN</span></span>
+        </div>
+        <button
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          className="p-2 text-gray-400 hover:text-white"
+        >
+          {isSidebarOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
+      </div>
+
+      {/* Backdrop */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside className={`
+        fixed md:static inset-y-0 left-0 z-50 w-64 bg-surface border-r border-white/5 flex flex-col transition-transform duration-300 transform
+        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+        md:translate-x-0
+      `}>
+        <div className="p-6 flex items-center gap-2 hidden md:flex">
+          <Dumbbell className="h-6 w-6 text-primary" />
+          <span className="font-display font-bold text-xl tracking-tight">GRIT <span className="text-primary">ADMIN</span></span>
+        </div>
+
+        <div className="p-4 md:hidden flex justify-end">
+          <button onClick={() => setIsSidebarOpen(false)} className="p-2 text-gray-400">
+            <X className="h-6 w-6" />
+          </button>
+        </div>
+
+        <nav className="flex-1 px-4 space-y-2 mt-4">
+          <p className="px-4 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Main Menu</p>
+          <NavLink
+            to="/admin" end
+            onClick={() => setIsSidebarOpen(false)}
+            className={({ isActive }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isActive ? 'bg-primary/10 text-primary border border-primary/20' : 'text-gray-400 hover:bg-white/5 hover:text-white'}`}
+          >
+            <LayoutDashboard className="h-5 w-5" />
+            Dashboard
+          </NavLink>
+          <NavLink
+            to="/admin/bookings"
+            onClick={() => setIsSidebarOpen(false)}
+            className={({ isActive }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isActive ? 'bg-primary/10 text-primary border border-primary/20' : 'text-gray-400 hover:bg-white/5 hover:text-white'}`}
+          >
+            <Calendar className="h-5 w-5" />
+            Bookings
+          </NavLink>
+          <NavLink
+            to="/admin/events"
+            onClick={() => setIsSidebarOpen(false)}
+            className={({ isActive }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isActive ? 'bg-primary/10 text-primary border border-primary/20' : 'text-gray-400 hover:bg-white/5 hover:text-white'}`}
+          >
+            <Calendar className="h-5 w-5" />
+            Event RSVPs
+          </NavLink>
+          <NavLink
+            to="/admin/contacts"
+            onClick={() => setIsSidebarOpen(false)}
+            className={({ isActive }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isActive ? 'bg-primary/10 text-primary border border-primary/20' : 'text-gray-400 hover:bg-white/5 hover:text-white'}`}
+          >
+            <Mail className="h-5 w-5" />
+            Contact Inbox
+          </NavLink>
+          <button
+            onClick={() => navigate('/')}
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition-all w-full text-left"
+          >
+            <ArrowLeft className="h-5 w-5" />
+            Back to Website
+          </button>
+        </nav>
+
+        <div className="p-4 border-t border-white/5">
+          <button onClick={handleLogout} className="flex items-center gap-3 text-gray-400 hover:text-white hover:bg-white/5 w-full px-4 py-3 rounded-xl transition-colors">
+            <LogOut className="h-5 w-5" />
+            Sign Out
+          </button>
+        </div>
+      </aside>
+
+      {/* Main Content */}
+      <main className="flex-1 overflow-y-auto p-4 md:p-8 bg-bg pt-20 md:pt-8">
+        <Outlet />
+      </main>
+    </div>
+  );
+};
+
+export default AdminLayout;
