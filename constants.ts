@@ -1,3 +1,9 @@
+import cricketArenaImg from './assets/cricketarena.png';
+import futsalFootballImg from './assets/futsal and football ground.png';
+import badmintonCourtImg from './assets/badminton court.png';
+import tableTennisImg from './assets/table tennis.png';
+import strengthTrainingImg from './assets/strength training.png';
+import khelKaGameImg from './assets/khel ka game.png';
 
 import { Facility, MembershipPlan, Event, Booking } from './types';
 
