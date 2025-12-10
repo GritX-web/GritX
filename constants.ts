@@ -7,7 +7,7 @@ import khelKaGameImg from './assets/khel ka game.png';
 import one from './assets/1.png';
 import two from './assets/2.png';
 import three from './assets/3.png';
-import foour from './assets/4.png';
+import four from './assets/4.png';
 
 import { Facility, MembershipPlan, Event, Booking } from './types';
 
