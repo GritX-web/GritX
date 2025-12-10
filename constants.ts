@@ -4,6 +4,10 @@ import badmintonCourtImg from './assets/badminton court.png';
 import tableTennisImg from './assets/table tennis.png';
 import strengthTrainingImg from './assets/strength training.png';
 import khelKaGameImg from './assets/khel ka game.png';
+import 1 from './assets/1.png';
+import 2 from './assets/2.png';
+import 3 from './assets/3.png';
+import 4 from './assets/4.png';
 
 import { Facility, MembershipPlan, Event, Booking } from './types';
 
@@ -80,7 +84,7 @@ export const EVENTS_DATA: Event[] = [
     time: '10:00 AM – 7:00 PM',
     location: 'GRITx Main Arena & Outdoor Courts',
     description: 'A full-day, action-packed community festival featuring friendly competitions across Box Cricket, Futsal, Badminton, and Table Tennis. Attendees enjoy food stalls, music, challenge zones, skill-based mini-games, and live DJ sessions.',
-    image: '/assets/1.png',
+    image: 1,
     category: 'Social',
   },
   {
@@ -90,7 +94,7 @@ export const EVENTS_DATA: Event[] = [
     time: '09:00 AM – 6:00 PM',
     location: 'GRITx Indoor Badminton Arena',
     description: 'A high-intensity competitive tournament open to intermediate and advanced players. The event follows BAI-style rules with knockout rounds leading to the finals. Certified referees ensure fair play and accurate scoring.',
-    image: '/assets/2.png',
+    image: 2,
     category: 'Competition',
   },
   {
@@ -100,7 +104,7 @@ export const EVENTS_DATA: Event[] = [
     time: '08:00 PM – 08:00 AM',
     location: 'GRITx Outdoor Futsal Turf',
     description: 'An ultra-unique overnight futsal endurance challenge, combining sport, stamina, strategy, and teamwork. Teams rotate players throughout the night, competing in short matches with points accumulated towards the final leaderboard.',
-    image: '/assets/3.png',
+    image: 3,
     category: 'Competition',
   },
   {
@@ -110,7 +114,7 @@ export const EVENTS_DATA: Event[] = [
     time: '07:00 AM – 09:00 PM',
     location: 'GRITx Fitness Studio',
     description: 'A week-long professional development and wellness camp for corporate teams. Featuring expert-led workshops, fitness assessments, nutrition coaching, team-building sports sessions, and stress-management modules.',
-    image: '/assets/4.png',
+    image: 4,
     category: 'Professional',
   }
 ];
